@@ -1,0 +1,161 @@
+\normalfont\documentclass[letterpaper,11pt]{article}
+\usepackage{amsmath, amsfonts,amssymb,latexsym}
+\usepackage{fullpage}
+\usepackage{parskip}
+
+\begin{document}
+
+\newcommand{\header}{
+	\noindent \fbox{
+	\begin{minipage}{6.4in}
+  	\medskip
+  	\textbf{ACM algorithm practice} \hfill \textbf{Fall 2015} \\[1mm]
+  	\begin{center}
+    	{\Large Week 1 Problems} \\[3mm]
+  	\end{center}
+	\today \hfill \itshape{Timothy Johnson}
+	\medskip
+	\end{minipage}}
+}
+
+\bigskip
+%\header
+
+\section*{Problem 1: Luxurious Houses}
+(Taken from: http://codeforces.com/problemset/problem/581/B) \newline
+The capital of Berland has $n$ multifloor buildings. The architect who built up the capital was very creative, so all the houses were built in one row.
+
+A house is luxurious if the number of floors in it is strictly greater than in all the houses, which are located to the right from it. In this task it is assumed that the heights of floors in the houses are the same.
+
+The new architect is interested in $n$ questions, "How many floors should be added to the $i$-th house to make it luxurious?" (for all $i$ from 1 to $n$, inclusive). You need to help him cope with this task.
+
+Note that all these questions are independent from each other — the answer to the question for house $i$ does not affect other answers (i.e., the floors to the houses are not actually added).
+
+\textbf{Input} \newline
+The first line of the input contains a single number $n$ ($1 \leq  n  \leq 10^5$), the number of houses in the capital of Berland.
+
+The second line contains $n$ space-separated positive integers $h_i$ ($1 \leq h_i \leq 10^9$), where $h_i$ equals the number of floors in the $i$-th house.
+
+\textbf{Output} \newline
+Print $n$ integers $a_1, a_2, \ldots, a_n$, where $a_i$ is the number of floors that need to be added to the house number $i$ to make it luxurious. If the house is already luxurious and nothing needs to be added to it, then $a_i$ should be equal to zero.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+5 \newline
+1 2 3 1 2
+
+\textbf{Output} \newline
+3 2 0 2 0 \newline
+
+\item \textbf{Input} \newline
+4 \newline
+3 2 1 4
+
+\textbf{Output} \newline
+2 3 4 0
+
+\end{itemize}
+
+\newpage
+
+
+\section*{Problem 2: Developing Skills}
+(Taken from: http://codeforces.com/problemset/problem/581/C) \newline
+Petya loves computer games. Finally a game that he's been waiting for so long came out!
+
+The main character of this game has $n$ different skills, each of which is characterized by an integer $a_i$ from 0 to 100. The higher the number $a_i$ is, the higher is the $i$-th skill of the character. The total rating of the character is calculated as the sum of the values ​​of $\lfloor \frac{a_i}{10} \rfloor$ for all $i$ from 1 to n. The expression $\lfloor x \rfloor$ denotes the result of rounding the number $x$ down to the nearest integer.
+
+At the beginning of the game Petya got $k$ improvement units as a bonus that he can use to increase the skills of his character and his total rating. One improvement unit can increase any skill of Petya's character by exactly one. For example, if $a_4 = 46$, after using one improvement unit to this skill, it becomes equal to 47. A hero's skill cannot rise higher more than 100. Thus, it is permissible that some of the units will remain unused.
+
+Your task is to determine the optimal way of using the improvement units so as to maximize the overall rating of the character. It is not necessary to use all the improvement units.
+
+\textbf{Input} \newline
+The first line of the input contains two positive integers $n$ and $k$ ($1 \leq n \leq 10^5, 1 \leq k \leq 10^7$) — the number of skills of the character and the number of units of improvements at Petya's disposal.
+
+The second line of the input contains a sequence of n integers $a_i$ ($0 \leq a_i \leq 100$), where $a_i$ characterizes the level of the $i$-th skill of the character.
+
+\textbf{Output} \newline
+The first line of the output should contain a single non-negative integer — the maximum total rating of the character that Petya can get using $k$ or less improvement units.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+2 4 \newline
+7 9
+
+\textbf{Output} \newline
+2
+
+\item \textbf{Input} \newline
+3 8 \newline
+17 15 19
+
+\textbf{Output} \newline
+5
+
+\item \textbf{Input} \newline
+2 2 \newline
+99 100
+
+\textbf{Output} \newline
+20
+
+\end{itemize}
+
+\newpage
+
+
+
+\section*{Problem 3: Three Logos}
+(Taken from: http://codeforces.com/problemset/problem/581/D) \newline
+Three companies decided to order a billboard with pictures of their logos. A billboard is a big square board. A logo of each company is a rectangle of a non-zero area.
+
+Advertisers will put up the ad only if it is possible to place all three logos on the billboard so that they do not overlap and the billboard has no empty space left. When you put a logo on the billboard, you should rotate it so that the sides were parallel to the sides of the billboard.
+
+Your task is to determine if it is possible to put the logos of all the three companies on some square billboard without breaking any of the described rules.
+
+\textbf{Input} \newline
+The first line of the input contains six positive integers $x_1, y_1, x_2, y_2, x_3, y_3$ ($1 \leq x_1, y_1, x_2, y_2, x_3, y_3$), where $x_i$ and $y_i$ determine the length and width of the logo of the $i$-th company respectively.
+
+\textbf{Output} \newline
+If it is impossible to place all the three logos on a square shield, print a single integer ``-1'' (without the quotes).
+
+If it is possible, print in the first line the length of a side of square $n$, where you can place all the three logos. Each of the next $n$ lines should contain $n$ uppercase English letters ``A'', ``B'' or ``C''. The sets of the same letters should form solid rectangles, provided that:
+
+\begin{itemize}
+\item the sizes of the rectangle composed of A's should be equal to the sizes of the logo of the first company,
+\item the sizes of the rectangle composed of B's should be equal to the sizes of the logo of the second company,
+\item the sizes of the rectangle composed of C's should be equal to the sizes of the logo of the third company, 
+\end{itemize}
+
+Note that the logos of the companies can be rotated for printing on the billboard. The billboard mustn't have any empty space. If a square billboard can be filled with the logos in multiple ways, you are allowed to print any of them.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+5 1 2 5 5 2
+
+\textbf{Output} \newline
+5 \newline
+AAAAA \newline
+BBBBB \newline
+BBBBB \newline
+CCCCC \newline
+CCCCC
+
+\item \textbf{Input} \newline
+4 4 2 6 4 2
+
+\textbf{Output} \newline
+6 \newline
+BBBBBB \newline
+BBBBBB \newline
+AAAACC \newline
+AAAACC \newline
+AAAACC \newline
+AAAACC
+
+\end{itemize}
+
+\end{document}
