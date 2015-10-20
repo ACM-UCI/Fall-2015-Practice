@@ -8,17 +8,117 @@
 \section*{Problem 1: Duff and Meat}
 (Taken from: http://codeforces.com/contest/588/problem/A)
 
-\newpage
+Duff is addicted to meat! Malek wants to keep her happy for $n$ days. In order to be happy on the $i$-th day, she needs to eat exactly $a_i$ kilograms of meat.
 
-\section*{Problem 2:}
+There is a large butcher shop nearby and Malek wants to buy meat for her from there. On the $i$-th day, they sell meat for $p_i$ dollars per kilogram. Malek knows all of the number $a_1, \ldots, a_n$ and $p_1, \ldots, p_n$. In each day, he can buy any amount of meat, and he can also save it for the future indefinitely.
 
+Malek is a little tired from cooking meat, so he asked for your help. Help him to minimize the total amount he spends to keep Duff happy for $n$ days.
 
-\newpage
+\textbf{Input} \newline
+The first line of the input contains an integer $n$ $(1 \leq n \leq 10^5)$, the number of days.
 
-\section*{Problem 3:}
-(Taken from: http://codeforces.com/contest/588/problem/C)
+In the next $n$ lines, the $i$-th line contains two integers $a_i$ and $p_i$ $(1 \leq a_i, p_i \leq 100)$, the amount of meat Duff needs and the cost of meat on that day.
 
+\textbf{Output} \newline
+Print the minimum amount of money needed to keep Duff happy for $n$ days, on one line. \newline
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+3 \newline
+1 3 \newline
+2 2 \newline
+3 1
+
+\textbf{Output} \newline
+10
+
+\item \textbf{Input} \newline
+3 \newline
+1 3 \newline
+2 1 \newline
+3 2
+
+\textbf{Output} \newline
+8 \newline
 \end{itemize}
 
+In the first example, the optimal solution is to buy 1 kg of meat on the first day, 2 kg on the second day, and 3 kg on the third day.
+
+In the second example, the optimal solution is to buy 1 kg on the first day and 5 kg on the second day.
+
+\newpage
+
+\section*{Problem 2: Kefa and First Steps}
+(Taken from: http://codeforces.com/contest/580/problem/A)
+
+Kefa decided to make some money doing business on the Internet for exactly $n$ days. He knows that on the $i$-th day $(1 \leq i \leq n)$ he makes $a_i$ money. Kefa loves progress, so that's why he wants to know the length of the maximum non-decreasing subsegment in the sequence $a_i$. (Note that a subsegment of a sequence must be continuous.)
+
+Help Kefa cope with this task!
+
+\textbf{Input} \newline
+The first line contains an integer $n$ $(1 \leq n \leq 10^5)$.
+
+The second line contains $n$ integers $a_1, a_2, \ldots, a_n$ $(1 \leq a_i \leq 10^9)$.
+
+\textbf{Output} \newline
+Print a single integer, the length of the maximum non-decreasing subsegment of the sequence $a$. \newline
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+6 \newline
+2 2 1 3 4 1
+
+\textbf{Output} \newline
+3
+
+\item \textbf{Input} \newline
+3 \newline
+2 2 9
+
+\textbf{Output} \newline
+3 \newline
+\end{itemize}
+
+In the first test the longest non-decreasing subsegment is 1, 3, 4. In the second test, the entire sequence is non-decreasing.
+
+\newpage
+
+\section*{Problem 3: Duff and Weight Lifting}
+(Taken from: http://codeforces.com/contest/588/problem/C)
+
+Recently, Duff has been practicing weight lifting. As a hard practice, Malek gave her a task. He gave her a sequence of weights. The weight of the $i$-th of them is $2^{w_i}$ pounds. In each step, Duff can lift some of the remaining weights and throw them away. She does this until there's no more weight left. Malek asked her to minimize the number of steps.
+
+Duff is a competitive programming fan. That's why in each step, she can only lift and throw away a sequence of weights $2^{a_1}, \ldots, 2^{a_k}$ if the sum of those weights is a power of two. Help her minimize the number of steps.
+
+\textbf{Input} \newline
+The first line of the input contains an integer $n$ $(1 \leq n \leq 10^6)$, the number of weights.
+
+The second line contains $n$ integers $w_1, \ldots, w_n$, separated by spaces $(0 \leq w_i \leq 10^6$ for each $1 \leq i \leq n)$, the powers of two forming the weights values.
+
+\textbf{Output} \newline
+Print the minimum number of steps in a single line. \newline
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+5 \newline
+1 1 2 3 3
+
+\textbf{Output} \newline
+2
+
+\item \textbf{Input} \newline
+4 \newline
+0 1 2 3
+
+\textbf{Output} \newline
+4 \newline
+\end{itemize}
+
+In the first example, one optimal solution would be to throw away the first three weights in the first step and the last two in the second step. You could also throw away the first four weights in the first step and the last one in the second step.
+
+In the second example, the only solution is to throw away one of the weights in each step.
 
 \end{document}
