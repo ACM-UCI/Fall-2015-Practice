@@ -1,0 +1,155 @@
+\normalfont\documentclass[letterpaper,11pt]{article}
+\usepackage{amsmath, amsfonts,amssymb,latexsym}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+\begin{document}
+\section*{Problem 1: Marina and Vasya}
+(Taken from: http://codeforces.com/problemset/problem/584/C)
+
+Marina loves strings of the same length and Vasya loves when there is a third string, different from each of them in exactly $t$ characters. Help Vasya find at least one such string.
+
+More formally, you are given two strings $s_1$, $s_2$ of length $n$, and a value $t$. Let's denote as $f(a,b)$ the number of characters in which strings $a$ and $b$ are different. Then your task will be to find any string $s_3$ of length $n$, such that $f(s_1, s_3) = f(s_2, s_3) = t$. If there is no such string, print -1.
+
+\textbf{Input} \newline
+The first line contains two integers $n$ and $t$ $(1 \leq n \leq 10^5, 0 \leq t \leq n)$.
+
+The second line contains string $s_1$ of length $n$, consisting of lowercase English letters.
+
+The third line contains string $s_2$ of length $n$, consisting of lowercase English letters.
+
+\textbf{Output} \newline
+Print a string of length $n$, differing from both string $s_1$ and from string $s_2$ in exactly $t$ characters. Your string should consist only of lowercase English letters. If such a string does not exist, print -1.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+3 \newline
+1 1 10 \newline
+5 8 2 \newline
+9 9 10
+
+\textbf{Output} \newline
+2 1 1
+
+\item \textbf{Input} \newline
+3 \newline
+3 2 4 \newline
+4 3 4 \newline
+3 6 4
+
+\textbf{Output} \newline
+2 2 2
+\end{itemize}
+
+\newpage
+
+\section*{Problem 2: Harry Potter and the History of Magic}
+(Taken from: http://codeforces.com/problemset/problem/65/B)
+
+The History of Magic is perhaps the most boring subject at Hogwarts. Harry Potter is usually asleep during history lessons, and his magical quill records the lectures for him. Professor Binns, the history of magic teacher, lectures in such a boring and monotonous voice that he has a soporific effect even on the quill. That's why the quill often makes mistakes, especially in dates.
+
+At the end of the semester Professor Binns decided to collect the students' notes and check them. Ron Weasley is in a panic. He also has been sleeping during the lectures and his quill had been eaten by his rat Scabbers. So while Harry's notes may have errors, Ron does not have any. Hermione Granger refused to give Ron her notes, because, in her opinion, everyone should learn on their own. Therefore, Ron has no choice but to copy Harry's notes.
+
+Due to the quill's errors Harry's dates are absolutely confused: the years of goblin rebellions and other important events for the wizarding world do not follow in order, and sometimes even dates from the future appear. Now Ron wants to change some of the digits while he copies the notes so that the dates are in chronological order and do not have any dates strictly later than 2011, or strictly before 1000. To make the resulting sequence as close as possible to the one dictated by Professor Binns, Ron will change no more than one digit in each date into the other digit. Help him do it.
+
+\textbf{Input} \newline
+The first input line contains an integer $n$ $(1 \leq n \leq 1000)$. It represent the number of dates in Harry's notes. The next $n$ lines contains the actual dates $y_1, y_2, \ldots, y_n$, each line containing a date. Each date is a four-digit integer $(1000 \leq y_i \leq 9999)$.
+
+\textbf{Output} \newline
+Print $n$ numbers $z_1, z_2, \ldots, z_n$ $(1000 \leq z_i \leq 2011)$, each on a single line. They are Ron's resulting dates. They must form a non-decreasing sequence, and each number $z_i$ should differ from the corresponding date $y_i$ from Harry's notes in no more than one digit. If there are several possible solutions, print any of them. If there's no solution, print ``No solution''.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+3 \newline
+1875 \newline
+1936 \newline
+1721
+
+\textbf{Output} \newline
+1835 \newline
+1836 \newline
+1921
+
+\item \textbf{Input} \newline
+4 \newline
+9999 \newline
+2000 \newline
+3000 \newline
+3011
+
+\textbf{Output} \newline
+1999 \newline
+2000 \newline
+2000 \newline
+2011
+
+\item \textbf{Input} \newline
+3 \newline
+1999 \newline
+5055 \newline
+2000 \newline
+
+\textbf{Output} \newline
+No solution
+\end{itemize}
+
+\newpage
+
+\section*{Problem 3: Quarrel}
+(Taken from: http://codeforces.com/problemset/problem/29/E)
+
+Two friends, Alex and Bob, live in Bertown. In this town there are $n$ intersections, some of which are connected by bidirectional roads of equal length. Bob lives at intersection 1, and Alex lives at intersection $n$.
+
+One day Alex and Bob had a big quarrel, and they refuse to see each other. Today it so happened that Bob needs to get from his house to intersection $n$ and Alex needs to get from his house to intersection 1. They don't want to meet at any of the crossroads, but they can meet in the middle of the street, while passing in opposite directions. Alex and Bob asked you, as their mutual friend, to help them with this difficult task.
+
+Find for Alex and Bob two routes with an equal number of streets so that they can follow these routes and never appear at the same intersection at the same time. Among all possible routes, select such that the number of streets in it is the least possible. Until both of them reach their destinations, they must both keep moving, at the same constant speed.
+
+If the require routes do not exist, output -1.
+
+\textbf{Input} \newline
+The first line contains two integers $n$ and $m$ $(2 \leq n \leq 500, 1 \leq m \leq 100000)$, the number of intersections and the number of roads. Each of the following $m$ lines contains two integers, the pairs of intersections connected by the road. It is guaranteed that no road connects an intersection with itself and no two intersections are connected by more than one road.
+
+\textbf{Output} \newline
+If the required routes do not exist, output -1. Otherwise, the first line should contain integer $k$, the length of the shortest routes. The next line should contain $k + 1$ integers with Bob's route, and the last line should contain the $k + 1$ integers for Alex's route. If there are several optimal solutions, output any of them.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+2 1 \newline
+1 2
+
+\textbf{Output} \newline
+1 \newline
+1 2 \newline
+2 1
+
+\item \textbf{Input} \newline
+7 5 \newline
+1 2 \newline
+2 7 \newline
+7 6 \newline
+2 3 \newline
+3 4
+
+\textbf{Output} \newline
+-1
+
+\item \textbf{Input} \newline
+7 6 \newline
+1 2 \newline
+2 7 \newline
+7 6 \newline
+2 3 \newline
+3 4 \newline
+1 5
+
+\textbf{Output} \newline
+6 \newline
+1 2 3 4 3 2 7 \newline
+7 6 7 2 1 5 1
+\end{itemize}
+
+\end{document}
