@@ -6,8 +6,7 @@ public class Main
 
 	public static void main(String[] args)
 	{
-		long startTime = System.nanoTime();
-		/*Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		int m = sc.nextInt();
 		
@@ -26,9 +25,10 @@ public class Main
 			int cross2 = sc.nextInt() - 1;
 			roads.get(cross1).add(cross2);
 			roads.get(cross2).add(cross1);
-		}*/
+		}
 		
-		//We construct a test graph with two cliques of size 250, connected by a single edge.
+		/***************************
+		//We construct a test graph with two cliques of size n/2, connected by a single edge.
 		int n = 500;
 		ArrayList<ArrayList<Integer>> roads = new ArrayList<ArrayList<Integer>>(n);
 		for(int i = 0; i < n; i++)
@@ -45,6 +45,7 @@ public class Main
 				roads.get(j).add(i);
 			}
 		}
+		
 
 		for(int i = n/2; i < n; i++)
 		{
@@ -57,193 +58,176 @@ public class Main
 		
 		roads.get(n/2 - 1).add(n/2);
 		roads.get(n/2).add(n/2 - 1);
+		**************************/
 		
-		//First we do a breadth-first search in our original graph, to check that Alex and Bob can
-		//reach one another.
+		//First we do a breadth-first search in our original graph to get the distances
+		//of each vertex from the start and from the end, so that we can use them in our
+		//A* heuristic.
 		int start = 0;
 		int end = n - 1;
-		boolean visitedCheck[] = new boolean[n];
-		ArrayList<Integer> queue = new ArrayList<Integer>();
-		queue.add(start);
-		visitedCheck[start] = true;
-		while(queue.size() > 0)
-		{
-			ArrayList<Integer> newQueue = new ArrayList<Integer>();
-			for(int currLoc : queue)
-			{
-				for(int newLoc : roads.get(currLoc))
-				{
-					if(!visitedCheck[newLoc])
-					{
-						newQueue.add(newLoc);
-						visitedCheck[newLoc] = true;
-					}
-				}
-			}
-			queue = newQueue;
-		}
-		if(!visitedCheck[end])
+		int distanceStart[] = new int[n];
+		int distanceEnd[] = new int[n];
+		breadthFirst(roads, start, distanceStart);
+		breadthFirst(roads, end, distanceEnd);
+
+		
+		if(distanceStart[end] < 0)
 		{
 			System.out.println(-1);
 			return;
 		}
 		else
 		{
-			//Next we do a bidirectional breadth-first search in the implicitly defined product graph,
-			//which has vertices for the pairs of positions of Alex and Bob, and edges for their pairs
+			//Next we do an A* search in the implicitly defined product graph, which has
+			//vertices for the pairs of positions of Alex and Bob, and edges for their pairs
 			//of possible moves. However, we ignore the vertices (i,i) for all i.
 			//We represent each pair (i,j) as i*n + j.
 			
-			//Each visited node will store the node it came from, or -1 by default, so we can trace
-			//back our route.
-			int visited1[] = new int[n*n]; 
-			int visited2[] = new int[n*n];
-			for(int i = 0; i < n*n; i++)
+			//Our heuristic will be the maximum of the distances of Alex and Bob from their
+			//destinations.
+			
+			//Each visited node will store the node it came from, or -1 by default, so we can
+			//trace back our route.
+			NodePair backtrace[][] = new NodePair[n][n];
+			int distance[][] = new int[n][n];
+			int heuristic[][] = new int[n][n];
+			for(int i = 0; i < n; i++)
 			{
-				visited1[i] = -1;
-				visited2[i] = -1;
+				for(int j = 0; j < n; j++)
+				{
+					distance[i][j] = -1;
+					heuristic[i][j] = Math.max(distanceEnd[i], distanceStart[j]);
+				}
 			}
 			
-			ArrayList<Integer> pairQueue1 = new ArrayList<Integer>();
-			ArrayList<Integer> pairQueue2 = new ArrayList<Integer>();
-			start = 0*n + n - 1;
-			end = (n - 1)*n + 0;
-			pairQueue1.add(start);
-			pairQueue2.add(end);
-			visited1[start] = 0;
-			visited2[end] = 0;
-			int distance = 0;
-			int meeting = -1;
+			PriorityQueue<NodePair> pairQueue = new PriorityQueue<NodePair>();
+			pairQueue.add(new NodePair(start, end, 0 + heuristic[start][end]));
+			NodePair currPair;
+			distance[start][end] = 0;
 			
 			outerloop: //label the outer loop so we can break from it when we're done
-			while(pairQueue1.size() > 0 || pairQueue2.size() > 0)
+			while(pairQueue.size() > 0)
 			{
-				ArrayList<Integer> newPairQueue1 = new ArrayList<Integer>();
-				ArrayList<Integer> newPairQueue2 = new ArrayList<Integer>();
-				for(int currPair : pairQueue1)
+				currPair = pairQueue.poll();
+				for(int adj1 : roads.get(currPair.node1))
 				{
-					//System.out.println(currPair);
-					int cross1 = currPair/n;
-					int cross2 = currPair%n;
-					//System.out.println("(" + cross1 + ", " + cross2 + ")");
-					for(int cross3 : roads.get(cross1))
+					for(int adj2 : roads.get(currPair.node2))
 					{
-						for(int cross4 : roads.get(cross2))
+						//System.out.println("adj1, adj2: " + adj1 + ", " + adj2);
+						if(adj1 == adj2)
+							continue; //Skip meeting points
+						else
 						{
-							//System.out.println("Next pair: " + cross3 + ", " + cross4);
-							if(cross3 == cross4)
-								continue; //Skip meeting points
+							if(adj1 == end && adj2 == start)
+							{
+								distance[end][start] = distance[currPair.node1][currPair.node2] + 1;
+								backtrace[end][start] = currPair;
+								break outerloop;
+							}
 							else
 							{
-								int newPair = cross3*n + cross4;
-								if(visited2[newPair] >= 0)
+								if(distance[adj1][adj2] < 0)
 								{
-									//System.out.println("Finished!");
-									visited1[newPair] = currPair;
-									meeting = newPair;
-									distance++;
-									break outerloop;
-								}
-								else
-								{
-									if(visited1[newPair] < 0)
-									{
-										newPairQueue1.add(newPair);
-										visited1[newPair] = currPair;
-									}
+									distance[adj1][adj2] = distance[currPair.node1][currPair.node2] + 1;
+									//System.out.println(distance[adj1][adj2]);
+									pairQueue.add(new NodePair(adj1, adj2, distance[currPair.node1][currPair.node2] + 1 + heuristic[adj1][adj2]));
+									backtrace[adj1][adj2] = currPair;
 								}
 							}
 						}
 					}
 				}
-					
-				for(int currPair : pairQueue2)
-				{
-					//System.out.println(currPair);
-					int cross1 = currPair/n;
-					int cross2 = currPair%n;
-					//System.out.println("(" + cross1 + ", " + cross2 + ")");
-					for(int cross3 : roads.get(cross1))
-					{
-						for(int cross4 : roads.get(cross2))
-						{
-							//System.out.println("Next pair: " + cross3 + ", " + cross4);
-							if(cross3 == cross4)
-								continue; //Skip meeting points
-							else
-							{
-								int newPair = cross3*n + cross4;
-								if(visited1[newPair] >= 0)
-								{
-									//System.out.println("Finished!");
-									visited2[newPair] = currPair;
-									meeting = newPair;
-									distance += 2;
-									break outerloop;
-								}
-								else
-								{
-									if(visited2[newPair] < 0)
-									{
-										newPairQueue2.add(newPair);
-										visited2[newPair] = currPair;
-									}
-								}
-							}
-						}
-					}
-				}
-				pairQueue1 = newPairQueue1;
-				pairQueue2 = newPairQueue2;
-				distance += 2;
 			}
 			
-			if(meeting < 0)
+			if(distance[end][start] < 0)
 			{
 				System.out.println(-1);
 			}
 			else
 			{
-				System.out.println(distance);
-				int route1[] = new int[distance + 1];
-				int route2[] = new int[distance + 1];
+				System.out.println(distance[end][start]);
+				int route1[] = new int[distance[end][start] + 1];
+				int route2[] = new int[distance[end][start] + 1];
+				route1[distance[end][start]] = end;
+				route2[distance[end][start]] = start;
 				
-				route1[distance/2] = meeting/n;
-				route2[distance/2] = meeting%n;
-				
-				int currPair = meeting;
-				int newPair;
-				for(int i = distance/2 - 1; i >= 0; i--)
+				NodePair newPair = backtrace[end][start];
+				for(int i = distance[end][start] - 1; i >= 0; i--)
 				{
-					newPair = visited1[currPair];
-					route1[i] = newPair/n;
-					route2[i] = newPair%n;
-					currPair = newPair;
+					route1[i] = newPair.node1;
+					route2[i] = newPair.node2;
+					if(i > 0)
+						newPair = backtrace[newPair.node1][newPair.node2];
 				}
 				
-				currPair = meeting;
-				for(int i = distance/2 + 1; i <= distance; i++)
-				{
-					newPair = visited2[currPair];
-					route1[i] = newPair/n;
-					route2[i] = newPair%n;
-					currPair = newPair;
-				}
-				
-				for(int i = 0; i <= distance; i++)
+				for(int i = 0; i <= distance[end][start]; i++)
 				{
 					System.out.print((route1[i] + 1) + " "); //Convert to 1-based
 				}
 				System.out.println();
 					
-				for(int i = 0; i <= distance; i++)
+				for(int i = 0; i <= distance[end][start]; i++)
 				{
 					System.out.print((route2[i] + 1) + " ");
 				}
 			}
 		}
 		
-		long endTime = System.nanoTime();
-		System.out.println("Took " + (endTime - startTime) + " ns");
+		//long endTime = System.nanoTime();
+		//System.out.println("Took " + (endTime - startTime) + " ns");
 	}
+	
+	public static void breadthFirst(ArrayList<ArrayList<Integer>> graph, int start, int[] distances)
+	{
+		for(int i = 0; i < graph.size(); i++)
+		{
+			distances[i] = -1;
+		}
+		
+		ArrayList<Integer> queue = new ArrayList<Integer>();
+		queue.add(start);
+		distances[start] = 0;
+		int currDistance = 1;
+		while(queue.size() > 0)
+		{
+			ArrayList<Integer> newQueue = new ArrayList<Integer>();
+			for(int currLoc : queue)
+			{
+				for(int newLoc : graph.get(currLoc))
+				{
+					if(distances[newLoc] < 0)
+					{
+						newQueue.add(newLoc);
+						distances[newLoc] = currDistance;
+					}
+				}
+			}
+			queue = newQueue;
+			currDistance++;
+		}
+	}
+}
+
+class NodePair implements Comparable<NodePair>
+{
+    int node1;
+    int node2;
+    int cost;
+ 
+    public NodePair()
+    {
+    }
+ 
+    public NodePair(int node1, int node2, int cost)
+    {
+        this.node1 = node1;
+        this.node2 = node2;
+        this.cost = cost;
+    }
+ 
+    @Override
+    public int compareTo(NodePair otherPair)
+    {
+    	return Integer.compare(this.cost, otherPair.cost);
+    }
 }

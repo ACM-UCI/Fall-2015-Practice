@@ -1,0 +1,117 @@
+\normalfont\documentclass[letterpaper,11pt]{article}
+\usepackage{amsmath, amsfonts,amssymb,latexsym}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+\begin{document}
+\section*{Problem 1: Berland National Library}
+Berland National Library has recently been built in the capital of Berland. Today was the pilot launch of an automated visitors' accounting system for the reading room!
+
+The scanner of the system is installed at the entrance to the reading room. It records the events ``reader entered room'' and ``reader left room''. Each reader is assigned a unique registration number from 1 to $10^6$. The system logs events of two forms:
+\begin{itemize}
+\item ``$+ r_i$'' - the reader with registration number $r_i$ entered the room;
+\item ``$- r_i$'' - the reader with registration number $r_i$ left the room.
+\end{itemize}
+
+The first launch of the system was a success, and it functioned for some period of time. However, it is unknown how many readers were present in the room already when the system began logging events, or how many readers were present when the system finished.
+
+Significant funds have been spent on the design and installation of the system, so some of the citizens of the capital have demanded an explanation for the need for this system. Thus the developers of the system need to urgently come up with reasons for its existence.
+
+Help the system developers find the minimum possible capacity of the reading room (in visitors) using the log of the system available to you.
+
+\textbf{Input} \newline
+The first line contains a positive integer $n$ $(1 \leq n \leq 100)$ - the number of records in the system log. Next follow $n$ events from the system journal in the order in which they were made. Each event was written on a single line and is in one of the forms $+ r_i$ or $- r_i$, where $r_i$ is an integer from 1 to $10^6$, the registration number of each visitor.
+
+\textbf{Output} \newline
+Print a single integer - the minimum possible capacity of the reading room.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+6 \newline
++ 12001 \newline
+- 12001 \newline
+- 1 \newline
+- 1200 \newline
++ 1 \newline
++ 7
+
+\textbf{Output} \newline
+3
+\end{itemize}
+
+\newpage
+
+\section*{Problem 2: Zero Segments}
+Debbie received an array $A$ as her birthday present. She wants to calculate the number of zero segments in her array. A zero segment is a segment of the array where the sum of those numbers is zero.
+
+For example, the array $[1,6,-5,-1,3]$ has a segment $[6,-5,-1]$ that is a zero segment because $6 + (-5) + (-1) = 0$.
+
+\textbf{Input} \newline
+The first line contains $N$, the size of the array $(1 \leq N \leq 5 \times 10^5)$.
+
+The second line contains $N$ integers, the $i$th of which is $A_i$ $(-10^6 \leq A_i \leq 10^6)$.
+
+\textbf{Output} \newline
+Print the number of zero segments in the array.
+
+\textbf{Examples} \newline
+\begin{itemize}
+\item \textbf{Input} \newline
+5 \newline
+-1 6 -5 -1 3
+
+\textbf{Output} \newline
+2
+
+\item \textbf{Input} \newline
+6 \newline
+-2 1 -1 1 -2 1
+
+\textbf{Output} \newline
+4
+\end{itemize}
+
+In the array $[-1, 6, -5, -1, 3]$, the two zero segments are $[-1, 6, -5]$ and $[6, -5, -1]$.
+
+In the array $[-2, 1, -1, 1, -2, 1]$, the two zero segments are $[1, -1]$, $[1, -1, 1, -2, 1]$, $[-1, 1]$, and $[1, -2, 1]$.
+
+\newpage
+
+\section*{Problem 3: Square Segments}
+Debbie received an array $A$ as her birthday present. She wants to calculate the number of square segments in her array. A square segment is a segment of the array where the product of those numbers is a square.
+
+For example, the array $[7,6,10,15,2]$ has a segment $[6,10,15]$ that is a square segment because $6 \times 10 \times 15 = 900 = 30^2$.
+
+\textbf{Input} \newline
+The first line contains $N$, the size of the array $(1 \leq N \leq 5 \times 10^5)$.
+
+The second line contains $N$ integers, the $i$th of which is $A_i$ $(1 \leq A_i \leq 10^6)$.
+
+\textbf{Output} \newline
+Print the number of square segments in the array.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+4 \newline
+3 4 4 3
+
+\textbf{Output} \newline
+4
+
+
+\item \textbf{Input} \newline
+5 \newline
+7 1 8 2 9
+
+\textbf{Output	} \newline
+6
+\end{itemize}
+
+In the array $[3,4,4,3]$, the square segments are $[4]$, $[4]$, $[4,4]$, and $[3,4,4,3]$.
+
+In the array $[7,1,8,2,9]$, the square segments are $[1]$, $[9]$, $[8,2]$, $[8,2,9]$, $[1,8,2,9]$.
+
+\end{document}
