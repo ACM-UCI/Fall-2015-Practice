@@ -1,0 +1,58 @@
+\normalfont\documentclass[letterpaper,11pt]{article}
+\usepackage{amsmath, amsfonts,amssymb,latexsym}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+\begin{document}
+\section*{Problem 1: Run-length Encoding}
+To encode images, we frequently use a format called the run-length encoding.
+
+For each segment that consists of the same character, we instead record the number of copies of that character. For example:
+\begin{itemize}
+\item aaaa $\rightarrow$ 4xa
+\item aaaaabbbbx $\rightarrow$ 5xa4xb1xx
+\end{itemize}
+
+Write a function that takes a string and computes the run-length encoding of the string.
+
+\vspace{1cm}
+
+
+\section*{Problem 2: Weather Prediction}
+Peter is a meteorologist for a ski resort in Colorado. He would like to be able to predict when they will have snow. Given a weather map of the cloud cover over Colorado, count the number of possible storms. A potential storm is a connected group of clouds. Clouds are connected when they are adjacent to one another vertically, horizontally, or diagonally.
+
+\textbf{Input} \newline
+The first line contains two integers $w$ and $h$, the width and height of Colorado in miles.
+
+Then we have $h$ rows of length $w$. A period shows no cloud cover, while a \# is used to show clouds over that square mile of the state.
+
+\textbf{Output} \newline
+Output the number of distinct storms.
+
+\textbf{Examples}
+\begin{itemize}
+\item \textbf{Input} \newline
+3 4 \newline
+\#.\# \newline
+..\# \newline
+\#.. \newline
+\#\#.
+
+\textbf{Output} \newline
+4
+\end{itemize}
+
+\newpage
+
+\section*{Problem 3: Skyline}
+Peter and John are having an argument over which of their cities have the most impressive skyline. To measure this, they've agreed to use the total area of the skyline.
+
+\textbf{Input} \newline
+The first line contains an integer $n$, the number of buildings on the skyline $(0 \leq n \leq 10^5)$. \newline
+The next $n$ lines each contain the integers $h_i, s_i, f_i$, the height, start, and final location.
+
+\textbf{Output} \newline
+Output the total area of the skyline.
+
+\end{document}
